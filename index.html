@@ -1,16 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-  <body>
-    <div id="app"></div>
-    <script type="module">
-      import {
+<body>
+<div id="app">
+    <button @click="incrementValue">{{ count }}</button>
+</div>
+<script type="module">
+    import {
         createApp,
         computed,
         ref,
-      } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
-      const App = {};
+    } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
 
-      createApp(App).mount("#app");
-    </script>
-  </body>
+    const App = {
+        setup() {
+            const count = ref(0);
+            const incrementValue = () => count.value++;
+            return {
+                count,
+                incrementValue
+            }
+        }
+    };
+
+    createApp(App).mount("#app");
+</script>
+</body>
 </html>
