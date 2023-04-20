@@ -3,11 +3,13 @@ import { ref, computed } from "vue";
 import ProductCard from "./components/ProductCard.vue";
 import { useFetch } from "./composables/useFetch";
 import { useSort } from "./composables/useSort";
+import { refDebounced } from '@vueuse/core';
 
 // loading products
 const query = ref("");
+const debouncedQuery = refDebounced(query, 500)
 const url = computed(
-  () => `https://dummyjson.com/products/search?limit=10000&q=${query.value}`
+  () => `https://dummyjson.com/products/search?limit=10000&q=${debouncedQuery.value}`
 );
 const { data, loading } = useFetch(url);
 const products = computed(() => data.value?.products || []);
